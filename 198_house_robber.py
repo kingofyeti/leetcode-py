@@ -4,13 +4,17 @@ class Solution(object):
       return 0
     if len(nums) == 1:
       return nums[0]
-    if len(nums) == 2:
-      return max(nums[0],nums[1])
-    res = [nums[0],max(nums[0],nums[1])]
-    for i in range(2,len(nums)):
-      res.append(max(nums[i]+res[i-2],res[i-1]))
-    return res[len(nums)-1]
-         
+    
+    max_without_last = 0
+    max_with_last = nums[0]
+    res = 0
+    
+    for i in range(1,len(nums)):
+      res = max(max_without_last + nums[i],max_with_last)
+      max_without_last = max_with_last
+      max_with_last = res
+      
+    return res
 
 solution = Solution()
 str_in = raw_input()
